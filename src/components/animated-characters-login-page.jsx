@@ -117,7 +117,7 @@ const EyeBall = ({
   return (
     <div
       ref={eyeRef}
-      className="rounded-full flex items-center justify-center transition-all duration-150"
+      className="rounded-full flex items-center justify-center transition-all"
       style={{
         width: `${size}px`,
         height: isBlinking ? '2px' : `${size}px`,
@@ -311,27 +311,25 @@ function LoginPage() {
   };
 
   return (
-    <div className="min-h-screen grid lg:grid-cols-2">
+    <div className="login-page">
       {/* Left Content Section */}
-      <div
-        className="relative hidden lg:flex flex-col justify-between bg-gradient-to-br from-primary/90 via-primary to-primary/80 p-12 text-primary-foreground">
-        <div className="relative z-20">
-          <div className="flex items-center gap-2 text-lg font-semibold">
-            <div
-              className="size-8 rounded-lg bg-primary-foreground/10 backdrop-blur-sm flex items-center justify-center">
-              <Sparkles className="size-4" />
+      <div className="login-panel">
+        <div className="login-panel__header">
+          <div className="login-panel__brand">
+            <div className="login-panel__brand-icon">
+              <Sparkles />
             </div>
             <span>YourBrand</span>
           </div>
         </div>
 
-        <div className="relative z-20 flex items-end justify-center h-[500px]">
+        <div className="login-panel__characters">
           {/* Cartoon Characters */}
-          <div className="relative" style={{ width: '550px', height: '400px' }}>
+          <div className="character-stage" style={{ width: '550px', height: '400px' }}>
             {/* Purple tall rectangle character - Back layer */}
             <div
               ref={purpleRef}
-              className="absolute bottom-0 transition-all duration-700 ease-in-out"
+              className="character"
               style={{
                 left: '70px',
                 width: '180px',
@@ -348,7 +346,7 @@ function LoginPage() {
               }}>
               {/* Eyes */}
               <div
-                className="absolute flex gap-8 transition-all duration-700 ease-in-out"
+                className="character__eyes flex gap-8"
                 style={{
                   left: (password.length > 0 && showPassword) ? `${20}px` : isLookingAtEachOther ? `${55}px` : `${45 + purplePos.faceX}px`,
                   top: (password.length > 0 && showPassword) ? `${35}px` : isLookingAtEachOther ? `${65}px` : `${40 + purplePos.faceY}px`,
@@ -377,7 +375,7 @@ function LoginPage() {
             {/* Black tall rectangle character - Middle layer */}
             <div
               ref={blackRef}
-              className="absolute bottom-0 transition-all duration-700 ease-in-out"
+              className="character"
               style={{
                 left: '240px',
                 width: '120px',
@@ -396,7 +394,7 @@ function LoginPage() {
               }}>
               {/* Eyes */}
               <div
-                className="absolute flex gap-6 transition-all duration-700 ease-in-out"
+                className="character__eyes flex gap-6"
                 style={{
                   left: (password.length > 0 && showPassword) ? `${10}px` : isLookingAtEachOther ? `${32}px` : `${26 + blackPos.faceX}px`,
                   top: (password.length > 0 && showPassword) ? `${28}px` : isLookingAtEachOther ? `${12}px` : `${32 + blackPos.faceY}px`,
@@ -425,7 +423,7 @@ function LoginPage() {
             {/* Orange semi-circle character - Front left */}
             <div
               ref={orangeRef}
-              className="absolute bottom-0 transition-all duration-700 ease-in-out"
+              className="character"
               style={{
                 left: '0px',
                 width: '240px',
@@ -438,7 +436,7 @@ function LoginPage() {
               }}>
               {/* Eyes - just pupils, no white */}
               <div
-                className="absolute flex gap-8 transition-all duration-200 ease-out"
+                className="character__eyes character__eyes--fast flex gap-8"
                 style={{
                   left: (password.length > 0 && showPassword) ? `${50}px` : `${82 + (orangePos.faceX || 0)}px`,
                   top: (password.length > 0 && showPassword) ? `${85}px` : `${90 + (orangePos.faceY || 0)}px`,
@@ -461,7 +459,7 @@ function LoginPage() {
             {/* Yellow tall rectangle character - Front right */}
             <div
               ref={yellowRef}
-              className="absolute bottom-0 transition-all duration-700 ease-in-out"
+              className="character"
               style={{
                 left: '310px',
                 width: '140px',
@@ -474,7 +472,7 @@ function LoginPage() {
               }}>
               {/* Eyes - just pupils, no white */}
               <div
-                className="absolute flex gap-6 transition-all duration-200 ease-out"
+                className="character__eyes character__eyes--fast flex gap-6"
                 style={{
                   left: (password.length > 0 && showPassword) ? `${20}px` : `${52 + (yellowPos.faceX || 0)}px`,
                   top: (password.length > 0 && showPassword) ? `${35}px` : `${40 + (yellowPos.faceY || 0)}px`,
@@ -494,7 +492,7 @@ function LoginPage() {
               </div>
               {/* Horizontal line for mouth */}
               <div
-                className="absolute w-20 h-[4px] bg-[#2D2D2D] rounded-full transition-all duration-200 ease-out"
+                className="character__mouth"
                 style={{
                   left: (password.length > 0 && showPassword) ? `${10}px` : `${40 + (yellowPos.faceX || 0)}px`,
                   top: (password.length > 0 && showPassword) ? `${88}px` : `${88 + (yellowPos.faceY || 0)}px`,
@@ -503,49 +501,38 @@ function LoginPage() {
           </div>
         </div>
 
-        <div
-          className="relative z-20 flex items-center gap-8 text-sm text-primary-foreground/60">
-          <a href="#" className="hover:text-primary-foreground transition-colors">
-            Privacy Policy
-          </a>
-          <a href="#" className="hover:text-primary-foreground transition-colors">
-            Terms of Service
-          </a>
-          <a href="#" className="hover:text-primary-foreground transition-colors">
-            Contact
-          </a>
+        <div className="login-panel__footer">
+          <a href="#">Privacy Policy</a>
+          <a href="#">Terms of Service</a>
+          <a href="#">Contact</a>
         </div>
 
         {/* Decorative elements */}
-        <div className="absolute inset-0 bg-grid-white/[0.05] bg-[size:20px_20px]" />
-        <div
-          className="absolute top-1/4 right-1/4 size-64 bg-primary-foreground/10 rounded-full blur-3xl" />
-        <div
-          className="absolute bottom-1/4 left-1/4 size-96 bg-primary-foreground/5 rounded-full blur-3xl" />
+        <div className="login-panel__grid" />
+        <div className="login-panel__blur-top" />
+        <div className="login-panel__blur-bottom" />
       </div>
       {/* Right Login Section */}
-      <div className="flex items-center justify-center p-8 bg-background">
-        <div className="w-full max-w-[420px]">
+      <div className="login-form-section">
+        <div className="login-form-container">
           {/* Mobile Logo */}
-          <div
-            className="lg:hidden flex items-center justify-center gap-2 text-lg font-semibold mb-12">
-            <div
-              className="size-8 rounded-lg bg-primary/10 flex items-center justify-center">
-              <Sparkles className="size-4 text-primary" />
+          <div className="login-form__mobile-brand">
+            <div className="login-form__mobile-brand-icon">
+              <Sparkles />
             </div>
             <span>YourBrand</span>
           </div>
 
           {/* Header */}
-          <div className="text-center mb-10">
-            <h1 className="text-3xl font-bold tracking-tight mb-2">Welcome back!</h1>
-            <p className="text-muted-foreground text-sm">Please enter your details</p>
+          <div className="login-form__header">
+            <h1 className="login-form__title">Welcome back!</h1>
+            <p className="login-form__subtitle">Please enter your details</p>
           </div>
 
           {/* Login Form */}
-          <form onSubmit={handleSubmit} className="space-y-5">
-            <div className="space-y-2">
-              <Label htmlFor="email" className="text-sm font-medium">Email</Label>
+          <form onSubmit={handleSubmit} className="login-form">
+            <div className="form-field">
+              <Label htmlFor="email">Email</Label>
               <Input
                 id="email"
                 type="email"
@@ -556,12 +543,12 @@ function LoginPage() {
                 onFocus={() => setIsTyping(true)}
                 onBlur={() => setIsTyping(false)}
                 required
-                className="h-12 bg-background border-border/60 focus:border-primary" />
+                className="input--lg input--soft-border" />
             </div>
 
-            <div className="space-y-2">
-              <Label htmlFor="password" className="text-sm font-medium">Password</Label>
-              <div className="relative">
+            <div className="form-field">
+              <Label htmlFor="password">Password</Label>
+              <div className="form-field__control">
                 <Input
                   id="password"
                   type={showPassword ? "text" : "password"}
@@ -569,42 +556,41 @@ function LoginPage() {
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   required
-                  className="h-12 pr-10 bg-background border-border/60 focus:border-primary" />
+                  className="input--lg input--with-icon input--soft-border" />
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors">
+                  className="password-toggle">
                   {showPassword ? (
-                    <EyeOff className="size-5" />
+                    <EyeOff />
                   ) : (
-                    <Eye className="size-5" />
+                    <Eye />
                   )}
                 </button>
               </div>
             </div>
 
-            <div className="flex items-center justify-between">
-              <div className="flex items-center space-x-2">
+            <div className="form-row">
+              <div className="form-row__checkbox">
                 <Checkbox id="remember" />
-                <Label htmlFor="remember" className="text-sm font-normal cursor-pointer">
+                <Label htmlFor="remember" className="label--normal label--clickable">
                   Remember for 30 days
                 </Label>
               </div>
-              <a href="#" className="text-sm text-primary hover:underline font-medium">
+              <a href="#" className="form-link">
                 Forgot password?
               </a>
             </div>
 
             {error && (
-              <div
-                className="p-3 text-sm text-red-400 bg-red-950/20 border border-red-900/30 rounded-lg">
+              <div className="form-error">
                 {error}
               </div>
             )}
 
             <Button
               type="submit"
-              className="w-full h-12 text-base font-medium"
+              className="btn--full"
               size="lg"
               disabled={isLoading}>
               {isLoading ? "Signing in..." : "Log in"}
@@ -612,22 +598,20 @@ function LoginPage() {
           </form>
 
           {/* Social Login */}
-          <div className="mt-6">
+          <div className="social-login">
             <Button
               variant="outline"
-              className="w-full h-12 bg-background border-border/60 hover:bg-accent"
+              className="btn--full btn--full-outline"
               type="button">
-              <Mail className="mr-2 size-5" />
+              <Mail className="btn__icon" />
               Log in with Google
             </Button>
           </div>
 
           {/* Sign Up Link */}
-          <div className="text-center text-sm text-muted-foreground mt-8">
+          <div className="signup-link">
             Don't have an account?{" "}
-            <a href="#" className="text-foreground font-medium hover:underline">
-              Sign Up
-            </a>
+            <a href="#">Sign Up</a>
           </div>
         </div>
       </div>
